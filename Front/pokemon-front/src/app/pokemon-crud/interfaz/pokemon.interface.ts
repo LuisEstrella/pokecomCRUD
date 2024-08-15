@@ -1,4 +1,4 @@
-export interface Product {
+export interface Pokemon {
     id: number;
     Name?: string;
     Type?: string;

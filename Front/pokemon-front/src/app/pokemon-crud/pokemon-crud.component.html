@@ -1,10 +1,10 @@
 <div class="p-grid p-align-start p-m-2">
-    <!-- Formulario para crear/editar producto -->
+    <!-- Formulario para crear/editar Pokemon -->
     <div class="p-col-12 p-md-8 p-lg-6">
-      <p-card header="Crear/Editar Producto" subheader="Complete los campos a continuación">
-        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <p-card header="Crear/Editar Pokemon" subheader="Complete los campos a continuación">
+        <form [formGroup]="pokemonForm" (ngSubmit)="onSubmit()">
           <div class="p-field">
-            <label for="name">Nombre del Producto</label>
+            <label for="name">Nombre del Pokemon</label>
             <input id="name" type="text" pInputText formControlName="Name" />
           </div>
   
@@ -18,10 +18,6 @@
             <input id="level" type="number" pInputText formControlName="Level" />
           </div>
   
-          <!-- <div class="p-field">
-            <label for="image">URL de la Imagen</label>
-            <input id="image" type="text" pInputText formControlName="Image" />
-          </div> -->
   
           <div class="p-field">
             <label for="image">Imagen</label>
@@ -31,16 +27,16 @@
 
           <div class="p-d-flex p-jc-between">
             <button pButton type="submit" label="Guardar" icon="pi pi-save"></button>
-            <!-- <button pButton type="button" label="Cancelar" icon="pi pi-times" (click)="onCancel()"></button> -->
+            <button pButton type="button" label="Cancelar" icon="pi pi-times" (click)="onCancel()"></button>
           </div>
         </form>
       </p-card>
     </div>
   
-    <!-- Tabla de productos con acciones -->
+    <!-- Tabla de pokemon -->
     <div class="p-col-12 p-md-12">
       <p-card header="Lista de Pokemons">
-        <p-table [value]="products" class="p-datatable-custom">
+        <p-table [value]="pokemonData" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]" class="p-datatable-custom">
           <ng-template pTemplate="header">
             <tr>
               <th>ID</th>
@@ -51,16 +47,16 @@
               <th>Acciones</th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-product>
+          <ng-template pTemplate="body" let-pokemon>
             <tr>
-              <td>{{ product.id }}</td>
-              <td>{{ product.Name }}</td>
-              <td>{{ product.Type }}</td>
-              <td>{{ product.Level }}</td>
-              <td><img [src]="product.Image" alt="{{ product.Name }}" width="50"></td>
+              <td>{{ pokemon.id }}</td>
+              <td>{{ pokemon.Name }}</td>
+              <td>{{ pokemon.Type }}</td>
+              <td>{{ pokemon.Level }}</td>
+              <td><img [src]="pokemon.Image" alt="{{ pokemon.Name }}" width="50"></td>
               <td>
-                <button pButton type="button" icon="pi pi-pencil" class="p-button-warning p-mr-2" (click)="editProduct(product)"></button>
-                <button pButton type="button" icon="pi pi-trash" class="p-button-danger" (click)="deleteProduct(product.id)"></button>
+                <button pButton type="button" icon="pi pi-pencil" class="p-button-warning p-mr-2" (click)="editProduct(pokemon)"></button>
+                <button pButton type="button" icon="pi pi-trash" class="p-button-danger" (click)="deleteProduct(pokemon.id)"></button>
               </td>
             </tr>
           </ng-template>

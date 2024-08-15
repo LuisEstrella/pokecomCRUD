@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from './interfaz/pokemon.interface';
+import { Pokemon } from './interfaz/pokemon.interface';
 import { PokemonCrudService } from './pokemon-crud.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -11,25 +11,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./pokemon-crud.component.css']
 })
 export class PokemonCrudComponent implements OnInit {
-
-
-  // products: Product[] = [
-  //   { id: 1, Name: 'Producto 1', Type: "test", Level: 100 },
-  //   { id: 2, Name: 'Producto 2', Type: "test", Level: 200 },
-  //   { id: 3, Name: 'Producto 3', Type: "test", Level: 300 }
-  // ];
   
-  products: Product[] = [];
-  productForm: FormGroup;
+  pokemonData: Pokemon[] = [];
+  pokemonForm: FormGroup;
   idTemp: number = 0;
 
   constructor(private pokemonCrudService : PokemonCrudService, private fb: FormBuilder) { 
-    this.productForm = this.fb.group({
+    this.pokemonForm = this.fb.group({
       Name: ['', Validators.required],
       Type: ['', Validators.required],
       Level: ['', Validators.required],
       Image: ['', Validators.required],
-      id: ['']
     });
   }
 
@@ -38,44 +30,49 @@ export class PokemonCrudComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.pokemonCrudService.getProducts().subscribe((data: Product[]) => {
-      this.products = data;
+    this.pokemonCrudService.getPokemons().subscribe((data: Pokemon[]) => {
+      this.pokemonData = data;
     });
   }
 
   onSubmit(): void {
-    if (this.productForm.valid) {
-      const newProduct: Product = this.productForm.value;
+    if (this.pokemonForm.valid) {
+      const newPokemon: Pokemon = this.pokemonForm.value;
       if(this.idTemp != 0){
-        this.pokemonCrudService.updateProduct(this.idTemp,newProduct).subscribe(() => {
+        this.pokemonCrudService.updatePokemon(this.idTemp,newPokemon).subscribe(() => {
           this.loadProducts();
           this.idTemp = 0;
-          this.productForm.reset();
+          this.pokemonForm.reset();
           this.resetFileInput();
         });
       }else{
 
-        this.pokemonCrudService.createProduct(newProduct).subscribe(() => {
+        this.pokemonCrudService.createPokemon(newPokemon).subscribe(() => {
           this.loadProducts();
-          this.productForm.reset();
+          this.pokemonForm.reset();
           this.resetFileInput();
         });
       }
     }
   }
 
-  editProduct(product: Product): void {
-    // Lógica para editar el producto
+  editProduct(product: Pokemon): void {
+    // Lógica para editar el pokemon
     this.idTemp = product.id;
-    this.productForm.patchValue(product);
+    this.pokemonForm.patchValue(product);
     
   }
 
   deleteProduct(productId: number): void {
-    this.pokemonCrudService.deleteProduct(productId).subscribe(() => {
-      // this.products = this.products.filter(p => p.id !== productId);
+    this.pokemonCrudService.deletePokemon(productId).subscribe(() => {
       this.loadProducts();
     });
+  }
+
+  onCancel(){
+    this.pokemonForm.reset();
+    this.resetFileInput();
+    this.idTemp = 0;
   }
 
   // Función para manejar la conversión de imagen a base64
@@ -83,7 +80,7 @@ export class PokemonCrudComponent implements OnInit {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = () => {
-      this.productForm.patchValue({ Image: reader.result as string });
+      this.pokemonForm.patchValue({ Image: reader.result as string });
     };
     reader.readAsDataURL(file);
   }

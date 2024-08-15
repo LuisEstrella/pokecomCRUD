@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from './interfaz/pokemon.interface';
+import { Pokemon } from './interfaz/pokemon.interface';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -11,23 +11,23 @@ export class PokemonCrudService {
 
   constructor(private http: HttpClient) { }
 
-   // Método para obtener todos los productos
-   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl);
+   // Método para obtener todos los pokemons
+   getPokemons(): Observable<Pokemon[]> {
+    return this.http.get<Pokemon[]>(this.apiUrl);
   }
 
-  createProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(this.apiUrl, product);
+  createPokemon(pokemon: Pokemon): Observable<Pokemon> {
+    return this.http.post<Pokemon>(this.apiUrl, pokemon);
   }
 
-  // Actualizar un producto existente
-  updateProduct(id: number, product: Product): Observable<Product> {
+  // Actualizar un pokemon existente
+  updatePokemon(id: number, pokemon: Pokemon): Observable<Pokemon> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.patch<Product>(url, product);
+    return this.http.patch<Pokemon>(url, pokemon);
   }
 
-  // Eliminar un producto
-  deleteProduct(id: number): Observable<void> {
+  // Eliminar un pokemon
+  deletePokemon(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url);
   }

@@ -9,6 +9,7 @@ import { TableModule } from 'primeng/table'; // Importa el módulo de la tabla
 import { CardModule } from 'primeng/card';  
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TableModule,
     HttpClientModule,
     ReactiveFormsModule,
-    CardModule
+    CardModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
