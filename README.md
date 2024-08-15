@@ -3,7 +3,8 @@
 Este proyecto es una aplicación frontend para la gestión de Pokemons, construida con Angular 14 y utilizando PrimeNG para la interfaz de usuario.
 
 iniciar el proyecto con el comando:
-ng serve
+-npm i
+-ng serve
 
 ## Requisitos Previos
 
