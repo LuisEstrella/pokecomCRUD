@@ -51,12 +51,14 @@ export class PokemonCrudComponent implements OnInit {
           this.loadProducts();
           this.idTemp = 0;
           this.productForm.reset();
+          this.resetFileInput();
         });
       }else{
 
         this.pokemonCrudService.createProduct(newProduct).subscribe(() => {
           this.loadProducts();
           this.productForm.reset();
+          this.resetFileInput();
         });
       }
     }
@@ -76,4 +78,21 @@ export class PokemonCrudComponent implements OnInit {
     });
   }
 
+  // Función para manejar la conversión de imagen a base64
+  handleImageUpload(event: any): void {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.productForm.patchValue({ Image: reader.result as string });
+    };
+    reader.readAsDataURL(file);
+  }
+
+  resetFileInput(): void {
+    const fileInput = document.getElementById('image') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
+  }
+  
 }

@@ -18,11 +18,17 @@
             <input id="level" type="number" pInputText formControlName="Level" />
           </div>
   
-          <div class="p-field">
+          <!-- <div class="p-field">
             <label for="image">URL de la Imagen</label>
             <input id="image" type="text" pInputText formControlName="Image" />
-          </div>
+          </div> -->
   
+          <div class="p-field">
+            <label for="image">Imagen</label>
+            <input id="image" type="file" (change)="handleImageUpload($event)" #fileInput />
+          </div>
+
+
           <div class="p-d-flex p-jc-between">
             <button pButton type="submit" label="Guardar" icon="pi pi-save"></button>
             <!-- <button pButton type="button" label="Cancelar" icon="pi pi-times" (click)="onCancel()"></button> -->
